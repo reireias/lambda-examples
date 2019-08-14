@@ -4,8 +4,8 @@ const AWS = require('aws-sdk')
 exports.handler = async (event) => {
     const client = new AWS.S3()
     const bucket = event.Records[0].s3.bucket.name
-    const res = await client.listObjectsV2({ Bucket: bucket }).promise()
-    await notify(res.Contents.map(obj => obj.Key).join(', '))
+    const objects = await client.listObjectsV2({ Bucket: bucket }).promise()
+    await notify(objects.Contents.map(obj => obj.Key).join(', '))
     const response = {
         statusCode: 200,
         body: JSON.stringify('Hello from Lambda!'),
