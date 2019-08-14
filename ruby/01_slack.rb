@@ -3,7 +3,7 @@ require 'uri'
 require 'net/https'
 
 def lambda_handler(event:, context:)
-  notify('Hello World')
+  notify('Hello World Ruby')
   { statusCode: 200, body: JSON.generate('Hello from Lambda!') }
 end
 

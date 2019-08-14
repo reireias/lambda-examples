@@ -6,7 +6,7 @@ require 'aws-sdk-s3'
 def lambda_handler(event:, context:)
   client = Aws::S3::Client.new(region: ENV['AWS_REGION'])
   bucket = event['Records'].first['s3']['bucket']['name']
-  text = client.list_objects(bucket: bucket).contents.map(&:key).join(' ')
+  text = client.list_objects(bucket: bucket).contents.map(&:key).join(', ')
   notify(text)
   { statusCode: 200, body: JSON.generate('Hello from Lambda!') }
 end
